@@ -1,0 +1,6 @@
+@NemuraProject_HostAddress = http://localhost:5087
+
+GET {{NemuraProject_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
