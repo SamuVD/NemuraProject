@@ -7,24 +7,12 @@ using System.Threading.Tasks;
 
 namespace NemuraProject.Models;
 
-// Data Annotation para cambiar el nombre de la tabla en la base de datos.
-[Table("users")]
+// LAS PROPIEDADES DE ESTA CLASE SERÁN VALIDADAS UTILIZANDO FLUENT API.
 public class User
 {
-    [Key]
-    [Column("id")]
     public int Id { get; set; }
-
-    // Data Annotation para cambiar el nombre de la columba en la base de datos.
-    [Column("name")]
-    public required string Name { get; set; }
-
-    [Column("last_name")]
-    public required string LastName { get; set; }
-
-    [Column("email")]
-    public required string Email { get; set; }
-
-    [Column("password")]
-    public required string Password { get; set; }
+    public string Name { get; set; }
+    public string LastName { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
 }
