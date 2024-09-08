@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace NemuraProject.Models;
 
 // LAS PROPIEDADES DE ESTA CLASE SERÁN VALIDADAS UTILIZANDO DATA ANNOTATIONS.
+
 // Data Annotation para cambiar el nombre de la entidad en la base de datos.
 [Table("projects")]
 public class Project
@@ -22,9 +23,19 @@ public class Project
     [Column("name")]
     // Data Annotation para indicar que esta propiedad debe ser NOT NULL en la base de datos.
     [Required]
+    // Data Annotation para indicar que esta propiedad debe tener una longitud máxima de 100 caracteres.
+    [MaxLength(100, ErrorMessage = "The project name can't be longer than {1} characters.")]
     public string Name { get; set; }
 
+    // Data Annotation para hacer referencia a una foreignkey.
+    [ForeignKey("UserId")]
     // Data Annotation para cambiar el nombre de la columna en la base de datos.
     [Column("user_id")]
     public int UserId { get; set; }
+
+    // Enlaces foraneos
+    public User User { get; set; }
+
+    // Colección de Tareas.
+    public virtual ICollection<Assignment> Assignments { get; set; }
 }
