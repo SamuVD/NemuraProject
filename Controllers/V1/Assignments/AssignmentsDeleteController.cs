@@ -13,10 +13,10 @@ namespace NemuraProject.Controllers.V1.Assignments;
 public class AssignmentsDeleteController : ControllerBase
 {
     // Esta propiedad es nuestra llave para entrar a la base de datos.
-    private readonly ConnectionDbContext Context;
+    private readonly ApplicationDbContext Context;
 
     // Builder. Este constructor se va a encargar de hacerme la conexión con la base de datos con ayuda de la llave.
-    public AssignmentsDeleteController(ConnectionDbContext context)
+    public AssignmentsDeleteController(ApplicationDbContext context)
     {
         Context = context;
     }

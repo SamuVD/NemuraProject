@@ -13,10 +13,10 @@ namespace NemuraProject.Controllers.V1.Projects;
 public class ProjectsReadController : ControllerBase
 {
     // Esta propiedad es nuestra llave para entrar a la base de datos.
-    private readonly ConnectionDbContext Context;
+    private readonly ApplicationDbContext Context;
 
     // Builder. Este constructor se va a encargar de hacerme la conexión con la base de datos con ayuda de la llave.
-    public ProjectsReadController(ConnectionDbContext context)
+    public ProjectsReadController(ApplicationDbContext context)
     {
         Context = context;
     }

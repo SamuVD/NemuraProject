@@ -10,7 +10,7 @@ using NemuraProject.DataBase;
 
 namespace NemuraProject.Migrations
 {
-    [DbContext(typeof(ConnectionDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class ConnectionDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

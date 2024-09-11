@@ -11,7 +11,7 @@ using NemuraProject.DataBase;
 
 namespace NemuraProject.Migrations
 {
-    [DbContext(typeof(ConnectionDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240908015247_hice_un_arreglo")]
     partial class hice_un_arreglo
     {
