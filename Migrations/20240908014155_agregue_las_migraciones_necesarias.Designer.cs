@@ -11,7 +11,7 @@ using NemuraProject.DataBase;
 
 namespace NemuraProject.Migrations
 {
-    [DbContext(typeof(ConnectionDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240908014155_agregue_las_migraciones_necesarias")]
     partial class agregue_las_migraciones_necesarias
     {

@@ -11,7 +11,7 @@ using NemuraProject.DataBase;
 
 namespace NemuraProject.Migrations
 {
-    [DbContext(typeof(ConnectionDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240908014819_configuramos_algunas_data_annotations")]
     partial class configuramos_algunas_data_annotations
     {
