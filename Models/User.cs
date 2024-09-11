@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace NemuraProject.Models;
 
 // LAS PROPIEDADES DE ESTA CLASE SERÁN VALIDADAS UTILIZANDO DATA ANNOTATIONS.
@@ -18,19 +17,25 @@ public class User
 
     [Required]
     [Column("name")]
-    [MaxLength(100, ErrorMessage = "The name can't be longer than {1} characters.")]
+    [MaxLength(255, ErrorMessage = "The name can't be longer than {1} characters.")]
     public string Name { get; set; }
 
     [Required]
     [Column("last_name")]
-    [MaxLength(100, ErrorMessage = "The last name can't be longer than {1} characters.")]
+    [MaxLength(255, ErrorMessage = "The last name can't be longer than {1} characters.")]
+    [MinLength(2, ErrorMessage = "The last name can't be longer than {1} caracter.")]
     public string LastName { get; set; }
 
     [Required]
+    [Column("nick_name")]
+    [MaxLength(255, ErrorMessage = "The nick name can't be longer than {1} characters.")]
+    public string NickName { get; set; }
+
+    [Required]
     [Column("email")]
-    [MaxLength(100, ErrorMessage = "The email can't be longer than {1} characters.")]
+    [MaxLength(255, ErrorMessage = "The email can't be longer than {1} characters.")]
     // Esta Data Annotation valida que el usuario ponga el formato correcto de una dirección de correo electrónico.
-    [EmailAddress]
+    [EmailAddress(ErrorMessage = "You must write a correct email format.")]
     // Esta Data Annotation muestra un mensaje sobre el campo de la propiedad.
     [Display(Name = "example@gmail.com")]
     public string Email { get; set; }
@@ -43,7 +48,4 @@ public class User
     [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", ErrorMessage = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.")]
     [Display(Name = "Please, 8 characters minimum, one uppercase letter, one lowercase letter, and one number.")]
     public string Password { get; set; }
-
-    // Colección de Proyectos.
-    public virtual ICollection<Project> Projects { get; set; }
 }

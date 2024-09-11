@@ -38,27 +38,13 @@ public class Assignment
     [Required]
     // Data Annotation para cambiar el nombre de la columna en la base de datos.
     [Column("name")]
+    [MaxLength(255, ErrorMessage = "The name can't be longer than {1} characters.")]
     public string Name { get; set; }
 
     // Data Annotation para cambiar el nombre de la columna en la base de datos.
     [Column("description")]
     [MaxLength(255, ErrorMessage = "The description can't be longer than {1} characters.")]
     public string Description { get; set; }
-
-    // Data Annotation para cambiar el nombre de la columna en la base de datos.
-    [Column("start_date")]
-    [Required(ErrorMessage = "The start date is obligatory.")]
-    // Esta Data Annotation sirve para especificar el tipo de dato.
-    [DataType(DataType.Date)]
-    public DateTime StartDate { get; set; }
-
-    [Required]
-    // Data Annotation para cambiar el nombre de la columna en la base de datos.
-    [Column("stopwatch")]
-    [DataType(DataType.Time)]
-    // Esta Data Annotation valida que el rango del cronómetro esté entre las 0 y 24 horas.
-    // [Range(typeof(TimeSpan), "00:00:00", "24:00:00")]
-    public DateTime Stopwatch { get; set; }
 
     // Data Annotation para cambiar el nombre de la columna en la base de datos.
     [Column("status")]
@@ -71,10 +57,10 @@ public class Assignment
     public AssignmentPriority Priority { get; set; }
 
     // Data Annotation para cambiar el nombre de la columna en la base de datos.
-    [ForeignKey("ProjectId")]
     [Column("project_id")]
     public int ProjectId { get; set; }
 
     // Enlaces foraneos
+    [ForeignKey("ProjectId")]
     public Project Project { get; set; }
 }
