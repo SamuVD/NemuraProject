@@ -9,7 +9,7 @@ using NemuraProject.Models;
 namespace NemuraProject.Controllers.V1.Users;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/users")]
 public class UsersCreateController : ControllerBase
 {
     // Esta propiedad es nuestra llave para entrar a la base de datos.
@@ -22,6 +22,15 @@ public class UsersCreateController : ControllerBase
     }
 
     // Este método se encargará de crear un nuevo usuario en la base de datos.
-    //[HttpPost]
-    //public async Task<IActionResult> Post([FromBody] User user){}
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] User user)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        Context.Users.Add(user);
+        await Context.SaveChangesAsync();
+        return Ok("User has been successfully created.");
+    }
 }

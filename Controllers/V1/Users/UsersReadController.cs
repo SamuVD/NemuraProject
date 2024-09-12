@@ -9,7 +9,7 @@ using NemuraProject.Models;
 namespace NemuraProject.Controllers.V1.Users;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/users")]
 public class UsersReadController : ControllerBase
 {
     // Esta propiedad es nuestra llave para entrar a la base de datos.
@@ -22,6 +22,6 @@ public class UsersReadController : ControllerBase
     }
 
     // Este método se encargará de traer los usuarios de la base de datos.
-    //[HttpGet]
-    //public async Task<IActionResult> Get(User user){}
+    [HttpGet]
+    public async Task<IActionResult> Get(User user){}
 }
