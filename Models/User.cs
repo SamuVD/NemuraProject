@@ -46,6 +46,6 @@ public class User
     [DataType(DataType.Password)]
     // Esta Data Annotation valida que la contraseña tenga al menos 8 caracteres y contenga al menos un número, una letra mayúscula, una letra minúscula.
     [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", ErrorMessage = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.")]
-    [Display(Name = "********")]
+    [Display(Name = "Must be at least 8 characters, one uppercase letter and one lowercase, and one number.")]
     public string Password { get; set; }
 }
