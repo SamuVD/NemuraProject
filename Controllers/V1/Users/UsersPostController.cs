@@ -30,7 +30,7 @@ public class UsersPostController : ControllerBase
     }
 
     // Este método se encargará de crear un nuevo usuario en la base de datos.
-    [HttpPost]
+    [HttpPost("Register")]
     public async Task<IActionResult> Register([FromBody] UserRegisterDto userRegisterDto)
     {
         if (!ModelState.IsValid)
@@ -59,31 +59,5 @@ public class UsersPostController : ControllerBase
         await Context.SaveChangesAsync();
 
         return Ok("User has been successfully registered.");
-    }
-
-    // Este método se encargará de dejar iniciar sesión a un usuario.
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        // Buscamos al usuario por su NickName que está registrado en la base de datos a ver si coincide con el que se está mandando por el Dto.
-        var user = await Context.Users.FirstOrDefaultAsync(item => item.NickName == userLoginDto.NickName);
-        if (user == null)
-        {
-            return Unauthorized("Invalid credentials.");
-        }
-
-        // Verificamos si la contraseña hasheada que ya está registrada en la base de datos coincide con la que se está mandando por el Dto.
-        var passwordResult = _passwordHasher.VerifyHashedPassword(user, user.Password, userLoginDto.Password);
-        if (passwordResult == PasswordVerificationResult.Failed)
-        {
-            return Unauthorized("Invalid credentials.");
-        }
-        return Ok(userLoginDto);
-        // Si todo está correcto, generamos un token de JWT para el usuario.
     }
 }
