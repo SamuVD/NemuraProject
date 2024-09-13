@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 Env.Load();
 
+builder.Configuration.AddEnvironmentVariables();
+
 var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
 var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
 var dbDatabaseName = Environment.GetEnvironmentVariable("DB_DATABASE");
