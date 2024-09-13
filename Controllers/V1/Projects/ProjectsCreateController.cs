@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NemuraProject.DataBase;
 using NemuraProject.Models;
@@ -24,4 +25,16 @@ public class ProjectsCreateController : ControllerBase
     // Este método va a crear un nuevo proyecto en la base de datos.
     //[HttpPost]
     //public async Task<IActionResult> Post([FromBody] Project project){}
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] Project project)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        Context.Projects.Add(project);
+        await Context.SaveChangesAsync();
+        return Ok("Project has been successfully created.");
+    }
 }

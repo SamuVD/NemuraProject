@@ -24,10 +24,8 @@ var mySqlConnection = $"server={dbHost};port={dbPort};database={dbDatabaseName};
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(mySqlConnection, ServerVersion.Parse("8.0.20-mysql")));
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+
 
 // Variables para conectar las configuraciones del JWT.
 var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY");
@@ -57,7 +55,25 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
 builder.Services.AddAuthorization();
+
+builder.Services.AddCors(options =>
+{
+options.AddPolicy("AllowSpecificOrigin",
+    builder =>
+    {
+        builder.WithOrigins("http://127.0.0.1:5173", "http://localhost:5173")
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials();
+    });
+});
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -68,7 +84,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication(); // Agregar la autenticación en el pipeline
 
