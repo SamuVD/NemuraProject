@@ -28,21 +28,6 @@ public class AssignmentsPostController : ControllerBase
         {
             return BadRequest(ModelState);
         }
-        // Convert the Status value to Enum
-        // Attempt to convert the string received in the DTO to an AssignmentStatus enum value.
-        // If conversion fails, return a 400 Bad Request error with an invalid status value message.
-        // if (!Enum.TryParse(assignmentPostDto.Status, true, out AssignmentStatus status))
-        // {
-        //     return BadRequest("Invalid status value.");
-        // }
-
-        // Convert the Priority value to Enum
-        // Attempt to convert the string received in the DTO to an AssignmentPriority enum value.
-        // If conversion fails, return a 400 Bad Request error with an invalid priority value message.
-        // if (!Enum.TryParse(assignmentPostDto.Priority, true, out AssignmentPriority priority))
-        // {
-        //     return BadRequest("Invalid priority value.");
-        // }
 
         // Search for the project in the database using the ID received in the DTO.
         // If the project is not found, return a 404 error with a project not found message.
