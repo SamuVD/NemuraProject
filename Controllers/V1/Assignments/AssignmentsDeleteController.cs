@@ -1,27 +1,40 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NemuraProject.DataBase;
-using NemuraProject.Models;
 
 namespace NemuraProject.Controllers.V1.Assignments;
 
+[Authorize] // Attribute to protect the Endpoint
 [ApiController]
 [Route("api/[controller]")]
 public class AssignmentsDeleteController : ControllerBase
 {
-    // Esta propiedad es nuestra llave para entrar a la base de datos.
+    // This property is our key to access the database.
     private readonly ApplicationDbContext Context;
 
-    // Builder. Este constructor se va a encargar de hacerme la conexión con la base de datos con ayuda de la llave.
+    // Constructor. This constructor is responsible for connecting to the database with the help of the key.
     public AssignmentsDeleteController(ApplicationDbContext context)
     {
         Context = context;
     }
 
-    // Este método se encarga de eliminar una tarea.
-    //[HttpDelete]
-    //public async Task<IActionResult> Delete(Assignment assignment){}
+    // Method to handle deleting a task by its Id.
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromRoute]int id)
+    {
+        // Search for the task by its ID.
+        var assignment = await Context.Assignments.FindAsync(id);
+        
+        // If the task does not exist, return an error message.
+        if (assignment == null)
+        {
+            return NotFound("The assignment was not found.");
+        }
+        // If the task exists, remove it from the database.
+        Context.Assignments.Remove(assignment);
+        await Context.SaveChangesAsync();
+        
+        // Return a confirmation message.
+        return Ok("The assignment was deleted.");
+    }
 }
