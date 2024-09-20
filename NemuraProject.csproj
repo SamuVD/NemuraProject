@@ -1,25 +1,67 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+  <!-- The SDK defines the type of project we are using.
+       In this case, it is an ASP.NET Core web project. -->
 
   <PropertyGroup>
+    <!-- Here the project properties are defined, such as the framework and general settings. -->
+
     <TargetFramework>net8.0</TargetFramework>
+    <!-- The project is configured to use .NET 8.0 as the main framework. -->
+
+    <Nullable>enable</Nullable>
+    <!-- Enables nullable reference annotations and warnings throughout the project,
+         helping to detect potential issues with null values. -->
+
     <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Enables the automatic inclusion of common namespaces,
+         simplifying the code and avoiding the need to write frequently used "using" directives. -->
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- This group contains references to the NuGet packages the project needs.
+         Packages are external libraries that add additional functionality. -->
+
     <PackageReference Include="DotNetEnv" Version="3.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" /> <!-- Package para trabajar con JWT -->
+    <!-- Package that allows loading environment variables from .env files,
+         useful for managing sensitive configurations like keys or connections. -->
+
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+     <!-- Package for handling JWT (JSON Web Token) authentication in ASP.NET Core applications,
+         used to implement security in APIs. -->
+
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
+    <!-- Package that enables support for using Newtonsoft.Json instead of .NET's default JSON serializer,
+         allowing advanced features such as enum-to-string conversion. -->
+
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <!-- Package that provides support for Entity Framework Core, an ORM for working with databases
+         in .NET applications. -->
+
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <!-- Design package for Entity Framework Core, providing necessary tools
+         for generating migrations and performing design operations on the database. -->
+
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <!-- Provides CLI (command-line interface) tools for working with Entity Framework Core,
+         allowing you to create migrations and update databases directly from the console. -->
+
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.2" /> <!-- Package para trabajar con JWT -->
+    <!-- Package for using Entity Framework Core with MySQL databases.
+         Pomelo is a popular implementation for working with MySQL in .NET projects. -->
+
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
+    <!-- Package that adds support for Swagger, a tool for generating interactive documentation
+         for APIs developed with ASP.NET Core. -->
+
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.2" />
+    <!-- Package for working with JWT tokens in .NET applications, useful for handling authentication
+         and authorization in API-based applications. -->
   </ItemGroup>
 
 </Project>

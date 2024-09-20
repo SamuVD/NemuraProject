@@ -1,63 +1,67 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NemuraProject.DataBase;
 using NemuraProject.Models;
 using NemuraProject.DTOs;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.EntityFrameworkCore;
 
 namespace NemuraProject.Controllers.V1.Users;
 
 [ApiController]
 [Route("api/v1/users")]
+// Defines an API controller in ASP.NET Core. This controller handles HTTP requests directed
+// to the route "api/v1/users".
 public class UsersPostController : ControllerBase
 {
-    // Esta propiedad es nuestra llave para entrar a la base de datos.
+    // Properties to handle the database and other configurations.
     private readonly ApplicationDbContext Context;
-    private readonly IConfiguration _configuration;
-    private readonly PasswordHasher<User> _passwordHasher;
+    // Context is the property that represents access to the database,
+    // allowing operations on it.
 
-    // Builder. Este constructor se va a encargar de hacerme la conexión con la base de datos con ayuda de la llave.
+    private readonly IConfiguration _configuration;
+    // IConfiguration allows access to configurations such as keys, database connection, or JWT.
+
+    private readonly PasswordHasher<User> _passwordHasher;
+    // PasswordHasher is used to hash (encrypt) the user's password before storing it.
+
+    // Constructor that initializes the necessary dependencies for the controller.
     public UsersPostController(ApplicationDbContext context, IConfiguration configuration)
     {
-        Context = context;
-        _configuration = configuration;
-        _passwordHasher = new PasswordHasher<User>();
+        Context = context; // Inject the database context.
+        _configuration = configuration; // Inject the configuration.
+        _passwordHasher = new PasswordHasher<User>(); // Initialize the password hasher.
     }
 
-    // Este método se encargará de crear un nuevo usuario en la base de datos.
+    // POST method to register a new user.
     [HttpPost("Register")]
+    // The [HttpPost] attribute indicates that this method will respond to HTTP POST requests at the "Register" route.
     public async Task<IActionResult> Register([FromBody] UserRegisterDto userRegisterDto)
     {
+        // Check if the model received in the request is valid.
         if (!ModelState.IsValid)
         {
-            return BadRequest(ModelState);
+            return BadRequest(ModelState); // If not valid, return a 400 Bad Request error.
         }
 
-        // Configurar las propiedades de la base de datos con las del DTO.
+        // Create a new User object from the data received from the DTO (Data Transfer Object).
         var user = new User
         {
             Name = userRegisterDto.Name,
             LastName = userRegisterDto.LastName,
             NickName = userRegisterDto.NickName,
             Email = userRegisterDto.Email,
-            Password = userRegisterDto.Password
+            Password = userRegisterDto.Password // This password is not yet encrypted.
         };
 
-        // Instanciamos la funcionalidad del passwordHasher.
+        // Instantiate the password hasher for encryption.
         var passwordHash = new PasswordHasher<User>();
 
-        // Asignamos la funcionalidad de la passwordHasher a la propiedad de password que ya está en la base de datos.
+        // Encrypt the user's password before storing it in the database.
         user.Password = passwordHash.HashPassword(user, userRegisterDto.Password);
 
-        // Guardamos esos cambios en la base de datos.
+        // Add the new user to the database.
         Context.Users.Add(user);
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(); // Save changes to the database asynchronously.
 
-        return Ok("User has been successfully registered.");
+        return Ok("User has been successfully registered."); // Respond with a success message.
     }
 }
