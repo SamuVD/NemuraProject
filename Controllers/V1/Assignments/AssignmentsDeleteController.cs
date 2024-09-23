@@ -6,7 +6,7 @@ namespace NemuraProject.Controllers.V1.Assignments;
 
 [Authorize] // Attribute to protect the Endpoint
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/assignments")]
 public class AssignmentsDeleteController : ControllerBase
 {
     // This property is our key to access the database.

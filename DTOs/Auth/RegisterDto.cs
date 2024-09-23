@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+namespace NemuraProject.DTOs.Auth;
 
-namespace NemuraProject.DTOs;
-
-public class UserRegisterDto
+public class RegisterDto
 {
     public string Name { get; set; }
     public string LastName { get; set; }
