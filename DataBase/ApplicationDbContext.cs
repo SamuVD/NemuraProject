@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NemuraProject.Models;
 
@@ -9,12 +5,21 @@ namespace NemuraProject.DataBase;
 
 public class ApplicationDbContext : DbContext
 {
-    // Propiedades del ConnectionDbContext para hacer referencia a nuestras clases de Models. Y poderlas enlazarlas con la base de datos.
+    // Properties of ApplicationDbContext to reference our Model classes.
+    // These properties allow the classes defined in Models (User, Project, Assignment)
+    // to be linked to the corresponding tables in the database.
     public DbSet<User> Users { get; set; }
-    public DbSet<Project> Projects { get; set; }
-    public DbSet<Assignment> Assignments { get; set; }
+    // Represents the "Users" table in the database and is linked to the User class.
 
-    // Constructor del ConnectionDbContext.
+    public DbSet<Project> Projects { get; set; }
+    // Represents the "Projects" table in the database and is linked to the Project class.
+
+    public DbSet<Assignment> Assignments { get; set; }
+    // Represents the "Assignments" table in the database and is linked to the Assignment class.
+
+    // Constructor of ApplicationDbContext.
+    // Receives the options (DbContextOptions) needed to configure the database context.
+    // Calls the base class DbContext constructor to initialize the context.
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
