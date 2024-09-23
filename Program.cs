@@ -72,12 +72,12 @@ builder.Services.AddAuthorization();
 // This allows only certain origins (domains) to make requests to our API.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",  // Name of the CORS policy.
+    options.AddPolicy("AllowSpecificOrigin",
         builder =>
         {
-            // Allows requests from the origins http://127.0.0.1:5173 and http://localhost:5173.
+             // Allows requests from the origins http://127.0.0.1:5173 and http://localhost:5173.
             // Also allows any type of header and HTTP method (GET, POST, etc.).
-            // AllowCredentials allows credentials (cookies, authentication headers) to be sent.
+           // AllowCredentials allows credentials (cookies, authentication headers) to be sent.
             builder.WithOrigins("http://127.0.0.1:5173", "http://localhost:5173")
                    .AllowAnyHeader()
                    .AllowAnyMethod()
