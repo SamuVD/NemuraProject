@@ -22,7 +22,7 @@ public class AssignmentsPatchController : ControllerBase
 
     // This method will update the Status enum of assignments.
     [HttpPatch("status/{id}")]
-    public async Task<IActionResult> Patch([FromRoute] int id, AssignmentPatchStatusDto assignmentPatchStatusDto)
+    public async Task<IActionResult> PatchStatus([FromRoute] int id, AssignmentPatchStatusDto assignmentPatchStatusDto)
     {
         var assignmentFound = await Context.Assignments.FindAsync(id);
 
@@ -39,7 +39,7 @@ public class AssignmentsPatchController : ControllerBase
 
     // This method will update the Priority enum of assignments.
     [HttpPatch("priority/{id}")]
-    public async Task<IActionResult> Patch([FromRoute] int id, AssignmentPatchPriorityDto assignmentPatchPriorityDto)
+    public async Task<IActionResult> PatchPriority([FromRoute] int id, AssignmentPatchPriorityDto assignmentPatchPriorityDto)
     {
         var assignmentFound = await Context.Assignments.FindAsync(id);
 
