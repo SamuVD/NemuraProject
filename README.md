@@ -29,7 +29,7 @@ This project was made with the proposity of create one ativities manager. Develo
 
 1. **Clonar el Repositorio**
    ```bash
-   git clone https://github.com/SamuVD/NemuraProject.git
+   git clone 
 2. **Navigate to the Project Directory**
    ```bash
    cd NemuraProject
