@@ -2,7 +2,7 @@ namespace NemuraProject.Enums;
 
 public enum AssignmentStatus
 {
-    To_Do,
-    Doing,
-    Done
+    ToDo = 0,
+    Doing = 1,
+    Done = 2
 }

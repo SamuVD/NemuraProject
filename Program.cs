@@ -89,13 +89,6 @@ builder.Services.AddCors(options =>
 // This allows the application to handle HTTP requests and return responses using controllers.
 builder.Services.AddControllers();
 
-// Configure Newtonsoft.Json for JSON serialization and deserialization.
-// This allows customizing how JSON is handled, including converting enums to strings.
-// .AddNewtonsoftJson(options =>
-// Add a converter for enums that converts enum values to strings instead of numbers.
-// This makes enums represented by their names instead of numeric values in JSON.
-// options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter()));
-
 // We configure Swagger, a tool that generates interactive API documentation.
 // OpenAPI is a standard specification for API documentation.
 builder.Services.AddEndpointsApiExplorer();
