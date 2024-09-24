@@ -33,16 +33,11 @@ public class User
     [MaxLength(255, ErrorMessage = "The email can't be longer than {1} characters.")]
     // This Data Annotation validates that the user provides the correct format of an email address.
     [EmailAddress(ErrorMessage = "You must write a correct email format.")]
-    // This Data Annotation shows a message about the property's field.
-    [Display(Name = "example@gmail.com")]
     public string Email { get; set; }
 
     [Required]
     [Column("password")]
-    // This Data Annotation indicates that the entered characters will be hidden (e.g., with asterisks or dots).
-    [DataType(DataType.Password)]
     // This Data Annotation validates that the password has at least 8 characters and contains at least one number, one uppercase letter, and one lowercase letter.
     [RegularExpression(@"^(?=.[a-z])(?=.[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", ErrorMessage = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.")]
-    [Display(Name = "Must be at least 8 characters, one uppercase letter, one lowercase, and one number.")]
     public string Password { get; set; }
 }

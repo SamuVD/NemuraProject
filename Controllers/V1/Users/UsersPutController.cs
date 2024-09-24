@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NemuraProject.DataBase;
 using NemuraProject.DTOs.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace NemuraProject.Controllers.V1.Users;
 
@@ -31,6 +32,22 @@ public class UsersPutController : ControllerBase
         if (userFound == null)
         {
             return NotFound("User not found.");
+        }
+
+        // Check if the NickName already exists in the database.
+        var existingNickName = await Context.Users.FirstOrDefaultAsync(user => user.NickName == userPutDto.NickName);
+
+        if (existingNickName != null)
+        {
+            return Conflict("The NickName is already in use. Please choose a different one."); // Return 409 Conflict if duplicate found.
+        }
+
+        // Check if the Gmail already exists in the database.
+        var existingEmail = await Context.Users.FirstOrDefaultAsync(user => user.Email == userPutDto.Email);
+
+        if (existingEmail != null)
+        {
+            return Conflict("The Email is already in use. Please choose a different one."); // Return 409 Conflict if duplicate found.
         }
 
         // Update user properties with the new values provided in the DTO.

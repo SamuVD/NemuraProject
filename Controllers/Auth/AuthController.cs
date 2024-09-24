@@ -45,6 +45,22 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState); // If not valid, return a 400 Bad Request error.
         }
 
+        // Check if the NickName already exists in the database.
+        var existingNickName = await Context.Users.FirstOrDefaultAsync(user => user.NickName == registerDto.NickName);
+
+        if (existingNickName != null)
+        {
+            return Conflict("The NickName is already in use. Please choose a different one."); // Return 409 Conflict if duplicate found.
+        }
+
+        // Check if the Gmail already exists in the database.
+        var existingEmail = await Context.Users.FirstOrDefaultAsync(user => user.Email == registerDto.Email);
+
+        if (existingEmail != null)
+        {
+            return Conflict("The Email is already in use. Please choose a different one."); // Return 409 Conflict if duplicate found.
+        }
+
         // Create a new User object from the data received from the DTO (Data Transfer Object).
         var user = new User
         {
