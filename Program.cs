@@ -78,7 +78,7 @@ builder.Services.AddCors(options =>
              // Allows requests from the origins http://127.0.0.1:5173 and http://localhost:5173.
             // Also allows any type of header and HTTP method (GET, POST, etc.).
            // AllowCredentials allows credentials (cookies, authentication headers) to be sent.
-            builder.WithOrigins("http://127.0.0.1:5173", "http://localhost:5173")
+            builder.WithOrigins("http://127.0.0.1:5173", "http://localhost:5173", "https://appnemura.netlify.app")
                    .AllowAnyHeader()
                    .AllowAnyMethod()
                    .AllowCredentials();
