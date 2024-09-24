@@ -15,9 +15,10 @@ This project was made with the proposity of create one ativities manager. Develo
 - **Authentication and Authorization**: Secure JWT-based authentication.
 - **Swagger Documentation**: Access the full API documentation and perform interactive tests through the Swagger UI.
 
-## Project Diagrams
+## Project Links
 
-- **LINK**: https://drive.google.com/drive/folders/1AsLtRq17xbcTIBz2lOZwhCxZ_0YsLIJd?usp=drive_link
+- **Diagrams**: https://drive.google.com/drive/folders/1AsLtRq17xbcTIBz2lOZwhCxZ_0YsLIJd?usp=drive_link
+- **Figma**: https://www.figma.com/design/K6lO5HvFvaSnyGxGj85Af7/Nemura?node-id=4-2&m=dev&t=LiiuzSgXcluDUC5e-1
 
 ## Technologies Required
 
