@@ -6,8 +6,7 @@ namespace NemuraProject.DataBase;
 public class ApplicationDbContext : DbContext
 {
     // Properties of ApplicationDbContext to reference our Model classes.
-    // These properties allow the classes defined in Models (User, Project, Assignment)
-    // to be linked to the corresponding tables in the database.
+    // These properties allow the classes defined in Models (User, Project, Assignment) to be linked to the corresponding tables in the database.
     public DbSet<User> Users { get; set; }
     // Represents the "Users" table in the database and is linked to the User class.
 

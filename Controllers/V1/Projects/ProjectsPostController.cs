@@ -6,15 +6,13 @@ using NemuraProject.DTOs.Project;
 
 namespace NemuraProject.Controllers.V1.Projects;
 
-// [Authorize] // Attribute to protect the endpoint
+[Authorize] // Attribute to protect the endpoint
 [ApiController]
 [Route("api/v1/projects")]
 public class ProjectsPostController : ControllerBase
 {
-    // This property is our key to access the database.
     private readonly ApplicationDbContext Context;
 
-    // Builder. This constructor will handle connecting to the database with the help of the key.
     public ProjectsPostController(ApplicationDbContext context)
     {
         Context = context;
@@ -33,7 +31,7 @@ public class ProjectsPostController : ControllerBase
         // Create a new instance of 'Project' and assign the DTO values to the model properties.
         var project = new Project
         {
-            Name = projectPostDto.Name,   // Project name
+            Name = projectPostDto.Name,
             UserId = projectPostDto.UserId // ID of the user associated with the project
         };
 
@@ -43,7 +41,6 @@ public class ProjectsPostController : ControllerBase
         // Save changes to the database asynchronously.
         await Context.SaveChangesAsync();
 
-        // Return a 200 OK response indicating that the project was successfully created.
         return Ok("Project has been successfully created.");
     }
 }

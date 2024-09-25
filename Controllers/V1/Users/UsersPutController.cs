@@ -6,16 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NemuraProject.Controllers.V1.Users;
 
-// [Authorize]
+[Authorize] // Attribute to protect the endpoint
 [ApiController]
 [Route("api/v1/users")]
 public class UsersPutController : ControllerBase
 {
-    // This property is used to interact with the database.
     private readonly ApplicationDbContext Context;
 
-    // Controller constructor where we inject the database context instance.
-    // The context is necessary to perform CRUD operations on the database.
     public UsersPutController(ApplicationDbContext context)
     {
         Context = context;
@@ -56,7 +53,9 @@ public class UsersPutController : ControllerBase
         userFound.NickName = userPutDto.NickName;
         userFound.Email = userPutDto.Email;
 
-       await Context.SaveChangesAsync();
-       return Ok("Info has been updated successfully.");
+        // Save changes to the database.
+        await Context.SaveChangesAsync();
+        
+        return Ok("Info has been updated successfully.");
     }
 }

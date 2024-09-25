@@ -1,21 +1,16 @@
-// Import the necessary libraries for working with Authorization, controllers, and database access.
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NemuraProject.DataBase;
 
 namespace NemuraProject.Controllers.V1.Projects;
 
-// Define the controller to handle requests related to project deletion.
-// [Authorize] // Attribute to protect the Endpoint
+[Authorize] // Attribute to protect the Endpoint
 [ApiController]
 [Route("api/v1/projects")]
 public class ProjectsDeleteController : ControllerBase
 {
-    // This property is used to interact with the database.
     private readonly ApplicationDbContext Context;
 
-    // Controller constructor where we inject the database context instance.
-    // The context is needed to perform CRUD operations on the database.
     public ProjectsDeleteController(ApplicationDbContext context)
     {
         Context = context;
@@ -25,7 +20,7 @@ public class ProjectsDeleteController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        // Search for the project in the database by its ID. If not found, 'projectToRemove' will be null.
+        // Search the project in the database by its ID.
         var projectToRemove = await Context.Projects.FindAsync(id);
 
         // If the project is not found, return a 404 (Not Found) response.
@@ -40,7 +35,6 @@ public class ProjectsDeleteController : ControllerBase
         // Save the changes to the database asynchronously.
         await Context.SaveChangesAsync();
 
-        // Return a 200 (OK) response indicating that the project was successfully deleted.
-        return Ok("The project was deleted.");
+        return Ok("The project has been deleted successfully.");
     }
 }

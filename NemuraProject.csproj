@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <!-- The SDK defines the type of project we are using.
-       In this case, it is an ASP.NET Core web project. -->
+  <!-- The SDK defines the type of project we are using. -->
 
   <PropertyGroup>
     <!-- Here the project properties are defined, such as the framework and general settings. -->
@@ -29,12 +28,8 @@
      <!-- Package for handling JWT (JSON Web Token) authentication in ASP.NET Core applications,
          used to implement security in APIs. -->
 
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.8" />
-    <!-- Package that enables support for using Newtonsoft.Json instead of .NET's default JSON serializer,
-         allowing advanced features such as enum-to-string conversion. -->
-
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
-    <!-- Package that provides support for Entity Framework Core, an ORM for working with databases
+    <!-- Package that provides support for Entity Framework Core, an ORM (Object Relational Mapping) for working with databases
          in .NET applications. -->
 
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">

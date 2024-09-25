@@ -1,23 +1,18 @@
-// Import necessary libraries for working with authorizations, controllers, Entity Framework, database access, and DTOs.
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NemuraProject.DataBase;
 using NemuraProject.DTOs.Project;
 
-namespace MyBackendNemura.Controllers.V1.Projects;
+namespace NemuraProject.Controllers.V1.Projects;
 
-// Define the controller to handle requests related to obtaining projects.
-// [Authorize] // Attribute to protect the endpoint
+[Authorize] // Attribute to protect the endpoint
 [ApiController]
 [Route("api/v1/projects")]
 public class ProjectsGetController : ControllerBase
 {
-    // This property is used to interact with the database.
     private readonly ApplicationDbContext Context;
 
-    // Constructor of the controller, where we inject the database context.
-    // The context allows performing operations on the database.
     public ProjectsGetController(ApplicationDbContext context)
     {
         Context = context;
@@ -27,12 +22,12 @@ public class ProjectsGetController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<ProjectGetDto>>> Get()
     {
-        // 1. Query the database to get all projects, selecting only the relevant fields.
+        // Query the database to get all projects, selecting only the relevant fields.
         var projects = await Context.Projects
             .Select(project => new ProjectGetDto
             {
-                Id = project.Id,       // Project ID
-                Name = project.Name,   // Project name
+                Id = project.Id,
+                Name = project.Name,
                 UserId = project.UserId // ID of the user related to the project
             }).ToListAsync();
 
@@ -46,11 +41,11 @@ public class ProjectsGetController : ControllerBase
             return NotFound("Projects not found.");
         }
 
-        // 3. If projects are found, return the list with a 200 OK status.
-        return Ok(projects); // Return the projects.
+        // If projects are found, return the list with a 200 OK status.
+        return Ok(projects);
     }
 
-    // Method to fetch all projects associated with a user by UserId.
+    // Method to handle HTTP GET requests. Method to get all projects associated with a user by UserId.
     [HttpGet("ByUserId/{id}")]
     public async Task<IActionResult> GetAllProjectsByUserId(int id)
     {
@@ -59,9 +54,9 @@ public class ProjectsGetController : ControllerBase
                                        .Where(project => project.UserId == id)
                                        .Select(project => new
                                        {
-                                           project.Id,                    // Project ID
-                                           project.Name,                 // Project name
-                                           project.UserId,              // User ID.
+                                           project.Id,
+                                           project.Name,
+                                           project.UserId, // ID of the user related to the project
                                        }).ToListAsync();
 
         // If there are no projects associated with the user, return a 404 (Not Found) response.
@@ -75,6 +70,6 @@ public class ProjectsGetController : ControllerBase
         }
 
         // Return the list of projects associated with the user with a 200 OK status.
-        return Ok(projects); // Projects found for the user.
+        return Ok(projects);
     }
 }
