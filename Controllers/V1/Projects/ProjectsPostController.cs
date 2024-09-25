@@ -6,7 +6,7 @@ using NemuraProject.DTOs.Project;
 
 namespace NemuraProject.Controllers.V1.Projects;
 
-[Authorize] // Attribute to protect the endpoint
+// [Authorize] // Attribute to protect the endpoint
 [ApiController]
 [Route("api/v1/projects")]
 public class ProjectsPostController : ControllerBase

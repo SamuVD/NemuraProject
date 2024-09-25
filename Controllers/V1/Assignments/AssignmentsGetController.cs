@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace NemuraProject.Controllers.V1.Assignments;
 
 // Define the controller to handle requests related to fetching tasks.
-[Authorize] // Attribute to protect the Endpoint
+// [Authorize] // Attribute to protect the Endpoint
 [ApiController]
 [Route("api/v1/assignments")]
 public class AssignmentsGetController : ControllerBase
@@ -40,10 +40,14 @@ public class AssignmentsGetController : ControllerBase
             }).ToListAsync();
 
         // Check if the list of tasks is empty. 
-        // If no tasks are found, return a 204 No Content.
+        // If no tasks are found, return a 404 No Found.
         if (assignments == null)
         {
-            return NoContent(); // No tasks available.
+            return NotFound("No tasks found.");
+        }
+        else if (assignments.Count == 0)
+        {
+            return NotFound("No tasks found.");
         }
 
         // Return the list of tasks with a 200 OK status.
@@ -63,21 +67,18 @@ public class AssignmentsGetController : ControllerBase
             return NotFound("Assignment not found.");
         }
 
-        // Query again to project the found task into an anonymous form.
-        var assignments = await Context.Assignments.Select(
-            assignment => new
-            {
-                assignment.Id,                   // Task ID
-                assignment.Name,                 // Task name
-                assignment.Description,          // Task description
-                assignment.Status,               // Task status
-                assignment.Priority,             // Task priority
-                assignment.ProjectId             // Associated project ID
-            }
-        ).ToListAsync();
+        var assignmentGetDto = new AssignmentGetDto
+        {
+            Id = assignmentFound.Id,
+            Name = assignmentFound.Name,
+            Description = assignmentFound.Description,
+            Status = assignmentFound.Status,
+            Priority = assignmentFound.Priority,
+            ProjectId = assignmentFound.ProjectId
+        };
 
         // Return the found task with a 200 OK status.
-        return Ok(assignments); // Task found.
+        return Ok(assignmentGetDto); // Task found.
     }
 
     // Method to handle HTTP GET requests. This method returns all tasks associated with a specific project using the project ID.
@@ -100,6 +101,10 @@ public class AssignmentsGetController : ControllerBase
         // Check if the list of tasks is empty. 
         // If no tasks are found for the project, return a 404 (Not Found) response.
         if (assignments == null)
+        {
+            return NotFound("No tasks found for the specified project.");
+        }
+        else if (assignments.Count == 0)
         {
             return NotFound("No tasks found for the specified project.");
         }

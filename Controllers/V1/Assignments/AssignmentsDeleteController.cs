@@ -4,7 +4,7 @@ using NemuraProject.DataBase;
 
 namespace NemuraProject.Controllers.V1.Assignments;
 
-[Authorize] // Attribute to protect the Endpoint
+// [Authorize] // Attribute to protect the Endpoint
 [ApiController]
 [Route("api/v1/assignments")]
 public class AssignmentsDeleteController : ControllerBase

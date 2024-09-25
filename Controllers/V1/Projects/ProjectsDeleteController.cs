@@ -6,7 +6,7 @@ using NemuraProject.DataBase;
 namespace NemuraProject.Controllers.V1.Projects;
 
 // Define the controller to handle requests related to project deletion.
-[Authorize] // Attribute to protect the Endpoint
+// [Authorize] // Attribute to protect the Endpoint
 [ApiController]
 [Route("api/v1/projects")]
 public class ProjectsDeleteController : ControllerBase

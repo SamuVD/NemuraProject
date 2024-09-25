@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NemuraProject.Controllers.V1.Users;
 
-[Authorize]
+// [Authorize]
 [ApiController]
 [Route("api/v1/users")]
 public class UsersPutController : ControllerBase

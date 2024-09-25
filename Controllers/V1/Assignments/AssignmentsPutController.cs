@@ -7,7 +7,7 @@ using NemuraProject.DTOs.Assignment;
 namespace NemuraProject.Controllers.V1.Assignments;
 
 // Define the controller to handle requests related to task updates.
-[Authorize] // Attribute to protect the Endpoint
+// [Authorize] // Attribute to protect the Endpoint
 [ApiController]
 [Route("api/v1/assignments")]
 public class AssignmentsPutController : ControllerBase

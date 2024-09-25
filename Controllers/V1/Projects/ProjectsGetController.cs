@@ -8,7 +8,7 @@ using NemuraProject.DTOs.Project;
 namespace MyBackendNemura.Controllers.V1.Projects;
 
 // Define the controller to handle requests related to obtaining projects.
-[Authorize] // Attribute to protect the endpoint
+// [Authorize] // Attribute to protect the endpoint
 [ApiController]
 [Route("api/v1/projects")]
 public class ProjectsGetController : ControllerBase
@@ -36,11 +36,14 @@ public class ProjectsGetController : ControllerBase
                 UserId = project.UserId // ID of the user related to the project
             }).ToListAsync();
 
-        // 2. Check if the list of projects is empty (null).
-        // If there are no projects, return a 204 No Content status.
+        // If there are no projects associated with the user, return a 404 (Not Found) response.
         if (projects == null)
         {
-            return NoContent(); // No projects available.
+            return NotFound("Projects not found.");
+        }
+        if (projects.Count == 0)
+        {
+            return NotFound("Projects not found.");
         }
 
         // 3. If projects are found, return the list with a 200 OK status.
@@ -61,11 +64,14 @@ public class ProjectsGetController : ControllerBase
                                            project.UserId,              // User ID.
                                        }).ToListAsync();
 
-        // Check if the list of projects is empty.
         // If there are no projects associated with the user, return a 404 (Not Found) response.
         if (projects == null)
         {
-            return NotFound("No projects found for the specified user.");
+            return NotFound("That user has no projects.");
+        }
+        else if (projects.Count == 0)
+        {
+            return NotFound("That user has no projects.");
         }
 
         // Return the list of projects associated with the user with a 200 OK status.

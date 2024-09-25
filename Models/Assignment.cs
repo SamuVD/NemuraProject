@@ -25,7 +25,7 @@ public class Assignment
     // Data annotation to change the column name in the database.
     [Column("description")]
     [MaxLength(255, ErrorMessage = "The description can't be longer than {1} characters.")]
-    public string? Description { get; set; }
+    public string Description { get; set; }
 
     // Data annotation to change the column name in the database.
     [Column("status")]

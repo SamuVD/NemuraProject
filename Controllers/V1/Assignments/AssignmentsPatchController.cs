@@ -5,7 +5,7 @@ using NemuraProject.DTOs.Assignment;
 
 namespace NemuraProject.Controllers.V1.Assignments;
 
-[Authorize]
+// [Authorize]
 [ApiController]
 [Route("api/v1/assignments")]
 public class AssignmentsPatchController : ControllerBase
