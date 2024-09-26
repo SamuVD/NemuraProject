@@ -6,53 +6,54 @@ using NemuraProject.DTOs.Assignment;
 
 namespace NemuraProject.Controllers.V1.Assignments;
 
-// [Authorize] // Attribute to protect the Endpoint
+[Authorize] // Attribute to protect the Endpoint
 [ApiController]
 [Route("api/v1/assignments")]
 public class AssignmentsPostController : ControllerBase
 {
-    // This property is our key to access the database.
     private readonly ApplicationDbContext Context;
 
-    // Builder. This constructor is responsible for connecting to the database with the help of the key.
     public AssignmentsPostController(ApplicationDbContext context)
     {
         Context = context;
     }
 
-    // This method is responsible for creating a new task.
+    // Method to handle HTTP Post requests. This method will create a new task.
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] AssignmentPostDto assignmentPostDto)
     {
+        // Check if the received model is valid. If not, return a 400 Bad Request status with validation details.
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        // Search for the project in the database using the ID received in the DTO.
-        // If the project is not found, return a 404 error with a project not found message.
+        // Search the project in the database using the ID received in the DTO.
         var project = await Context.Projects.FindAsync(assignmentPostDto.ProjectId);
+
+        // If the project is not found, return a 404 (Not Found) response.
         if (project == null)
         {
             return NotFound("Project not found");
         }
 
-        // Create a new instance of Assignment using the values from the DTO and converted enums.
+        // Create a new instance of Assignment using the values from the DTO.
         var assignment = new Assignment
         {
             Name = assignmentPostDto.Name,
             Description = assignmentPostDto.Description,
-            Status = assignmentPostDto.Status, // Here the enum is already being handled
-            Priority = assignmentPostDto.Priority, // Likewise for priority
+            Status = assignmentPostDto.Status,
+            Priority = assignmentPostDto.Priority,
             ProjectId = assignmentPostDto.ProjectId,
             Project = project
         };
 
-        // Add the new task to the context and save the changes to the database.
+        // Add the new task to the context.
         Context.Assignments.Add(assignment);
+
+        // Save the changes to the database.
         await Context.SaveChangesAsync();
 
-        // Return a success message with a 200 OK status.
         return Ok("Assignment has been created successfully.");
     }
 }

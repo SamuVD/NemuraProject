@@ -13,11 +13,9 @@ namespace NemuraProject.Controllers.Auth;
 
 [ApiController]
 [Route("api/v1/auths")]
-// Defines an API controller in ASP.NET Core. This controller handles HTTP requests directed to the route "api/v1/auths".
 public class AuthController : ControllerBase
 {
     private readonly ApplicationDbContext Context;
-    // Context is the property that represents access to the database, allowing operations on it.
 
     private readonly IConfiguration _configuration;
     // IConfiguration allows access to configurations such as keys, database connection, or JWT.
@@ -25,7 +23,6 @@ public class AuthController : ControllerBase
     private readonly PasswordHasher<User> _passwordHasher;
     // PasswordHasher is used to hash (encrypt) the user's password before storing it.
 
-    // Constructor of the controller.
     // Initializes the database context, configuration, and passwordHasher.
     public AuthController(ApplicationDbContext context, IConfiguration configuration)
     {
@@ -36,7 +33,6 @@ public class AuthController : ControllerBase
 
     // POST method to register a new user.
     [HttpPost("Register")]
-    // The [HttpPost] attribute indicates that this method will respond to HTTP POST requests at the "Register" route.
     public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
     {
         // Check if the model received in the request is valid.
@@ -79,17 +75,18 @@ public class AuthController : ControllerBase
 
         // Add the new user to the database.
         Context.Users.Add(user);
-        await Context.SaveChangesAsync(); // Save changes to the database asynchronously.
 
-        return Ok("User has been successfully registered."); // Respond with a success message.
+        // Save changes to the database asynchronously.
+        await Context.SaveChangesAsync();
+
+        return Ok("User has been registered successfully.");
     }
 
-    // Method to log in a user.
-    // Uses the [HttpPost("Login")] attribute to define the endpoint route.
+    // Method to handle HTTP Post. This method allows to log in a user.
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
-        // Check if the DTO model is valid.
+        // Check if the DTO model is valid. If not, return a 400 Bad Request status with validation details.
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
@@ -115,16 +112,12 @@ public class AuthController : ControllerBase
         // Return an OK response with the user data and JWT token.
         return Ok(new
         {
-            message = "Success",
-            data = new
-            {
-                id = user.Id,
-                name = user.Name,
-                lastName = user.LastName,
-                nickName = user.NickName,
-                email = user.Email,
-                token = token
-            }
+            id = user.Id,
+            name = user.Name,
+            lastName = user.LastName,
+            nickName = user.NickName,
+            email = user.Email,
+            token = token
         });
     }
 
@@ -137,7 +130,7 @@ public class AuthController : ControllerBase
         // Create signing credentials using the security key and HMAC-SHA256 algorithm.
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        // Define the claims that will be included in the JWT.
+        // Define the claims that will be included in the JWT (OPCIONAL).
         var claims = new[]
         {
             new Claim("Id", user.Id.ToString()), // User Id.

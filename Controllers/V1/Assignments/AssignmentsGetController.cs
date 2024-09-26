@@ -1,4 +1,3 @@
-// Import the necessary libraries for working with Authorizations, controllers, Entity Framework, and DTOs.
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NemuraProject.DataBase;
@@ -7,17 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NemuraProject.Controllers.V1.Assignments;
 
-// Define the controller to handle requests related to fetching tasks.
-// [Authorize] // Attribute to protect the Endpoint
+[Authorize] // Attribute to protect the Endpoint
 [ApiController]
 [Route("api/v1/assignments")]
 public class AssignmentsGetController : ControllerBase
 {
-    // This property is used to interact with the database.
     private readonly ApplicationDbContext Context;
 
-    // Constructor of the controller, where we inject the database context instance.
-    // The context allows performing operations on the database.
     public AssignmentsGetController(ApplicationDbContext context)
     {
         Context = context;
@@ -31,12 +26,12 @@ public class AssignmentsGetController : ControllerBase
         var assignments = await Context.Assignments.Select(
             assignment => new AssignmentGetDto
             {
-                Id = assignment.Id,                   // Task ID
-                Name = assignment.Name,               // Task name
-                Description = assignment.Description, // Task description
-                Status = assignment.Status,           // Task status
-                Priority = assignment.Priority,       // Task priority
-                ProjectId = assignment.ProjectId      // Associated project ID
+                Id = assignment.Id,
+                Name = assignment.Name,
+                Description = assignment.Description,
+                Status = assignment.Status,
+                Priority = assignment.Priority,
+                ProjectId = assignment.ProjectId // Associated project ID
             }).ToListAsync();
 
         // Check if the list of tasks is empty. 
@@ -51,14 +46,14 @@ public class AssignmentsGetController : ControllerBase
         }
 
         // Return the list of tasks with a 200 OK status.
-        return Ok(assignments); // Tasks found.
+        return Ok(assignments);
     }
 
     // Method to handle HTTP GET requests. This method returns a specific task using its ID.
     [HttpGet("ById/{id}")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        // Search for the task in the database by its ID. If not found, 'assignmentFound' will be null.
+        // Search the task in the database by its ID.
         var assignmentFound = await Context.Assignments.FindAsync(id);
 
         // If the task is not found, return a 404 (Not Found) response.
@@ -78,7 +73,7 @@ public class AssignmentsGetController : ControllerBase
         };
 
         // Return the found task with a 200 OK status.
-        return Ok(assignmentGetDto); // Task found.
+        return Ok(assignmentGetDto);
     }
 
     // Method to handle HTTP GET requests. This method returns all tasks associated with a specific project using the project ID.
@@ -90,12 +85,12 @@ public class AssignmentsGetController : ControllerBase
                                        .Where(assignment => assignment.ProjectId == id)
                                        .Select(assignment => new
                                        {
-                                           assignment.Id,                   // Task ID
-                                           assignment.Name,                 // Task name
-                                           assignment.Description,          // Task description
-                                           assignment.Status,               // Task status
-                                           assignment.Priority,             // Task priority
-                                           assignment.ProjectId             // Associated project ID
+                                           assignment.Id,
+                                           assignment.Name,
+                                           assignment.Description,
+                                           assignment.Status,
+                                           assignment.Priority,
+                                           assignment.ProjectId // Associated project ID
                                        }).ToListAsync();
 
         // Check if the list of tasks is empty. 
@@ -110,6 +105,6 @@ public class AssignmentsGetController : ControllerBase
         }
 
         // Return the list of tasks associated with the project with a 200 OK status.
-        return Ok(assignments); // Tasks found for the project.
+        return Ok(assignments);
     }
 }
